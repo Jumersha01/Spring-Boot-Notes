@@ -1,0 +1,29 @@
+package com.example.quote;
+
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+import java.util.Random;
+
+@Component
+public class QuoteScheduler {
+
+    String[] quotes = {
+            "Never give up",
+            "Success needs consistency",
+            "Work hard in silence",
+            "Believe in yourself",
+            "Dream big"
+    };
+
+    Random random = new Random();
+
+    // Every day at 8 AM
+    @Scheduled(cron = "0 0 8 * * *")
+    public void generateQuote() {
+
+        int index = random.nextInt(quotes.length);
+
+        System.out.println("Today's Quote: " + quotes[index]);
+    }
+}
