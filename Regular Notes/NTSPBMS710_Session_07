@@ -1,0 +1,36 @@
+package com.example.ordersystem.scheduler;
+
+import com.example.ordersystem.service.OrderService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
+
+@Component
+public class OrderScheduler {
+
+    @Autowired
+    private OrderService service;
+
+    // Every 20 seconds
+    @Scheduled(fixedRate = 20000)
+    public void updateOrders() {
+
+        System.out.println(
+                "Checking pending orders..."
+        );
+
+        service.updateOrderStatus();
+    }
+
+    // Every 1 minute
+    @Scheduled(fixedRate = 60000)
+    public void removeUnpaidOrders() {
+
+        System.out.println(
+                "Checking unpaid orders..."
+        );
+
+        service.cancelUnpaidOrders();
+    }
+}
